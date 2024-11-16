@@ -1,0 +1,28 @@
+---
+    const {
+        type = 'text',
+        name,
+        id,
+        required = false,
+        placeHolder = '',
+        leftSidePadding = 0,
+        rightSidePadding = 0
+    } = Astro.props
+---
+
+<label for={id} class="sr-only">{ placeHolder }</label>
+<div class="relative rounded-md">
+    <!-- {leftIcon || leftIconText && <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <span class="text-gray-500 sm:text-sm">{leftIconText}</span>
+    </div>} -->
+    <slot name="left-side" />
+    <input id={id} name={name} type={type} autocomplete={type==='email' || 'password' ? type : '' } required={required}
+        class:list={['px-4', `pr-${rightSidePadding}`, `pl-${leftSidePadding}`]} placeholder={placeHolder}>
+    <slot name="right-side" />
+</div>
+
+<style>
+    input {
+        @apply w-full block border-0 outline-0 py-2 text-gray-900 placeholder:text-gray-400 focus:z-10 sm:text-sm/6;
+    }
+</style>

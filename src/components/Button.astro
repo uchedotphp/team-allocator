@@ -1,0 +1,31 @@
+---
+    const { id = 'submitBtn', isDisabled = false, type = 'button', class: className, ...rest } = Astro.props
+---
+
+<button id={id} type={type} disabled={isDisabled} class:list={{disabled:isDisabled}} class={className} {...rest}>
+    <slot name="icon-left" />
+    <span class="text-sm/6 font-semibold">
+        <slot name="text" />
+    </span>
+    <slot name="icon-right" />
+</button>
+
+<script>
+    const btn = document.getElementById('submitBtn')
+    console.log('yo: ', btn);
+    if (btn) {
+        btn.addEventListener('click', () => {
+            console.log('hello');
+        })
+    }
+</script>
+
+<style lang="scss">
+    button {
+        @apply flex w-full items-center justify-center gap-3 rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 focus-visible:ring-transparent cursor-pointer;
+
+        &.disabled {
+            cursor: not-allowed;
+        }
+    }
+</style>
